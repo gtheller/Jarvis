@@ -3,14 +3,57 @@ import os
 import numpy as np
 import math
 import random
+import cv2
 
-import keras
-from keras.models import Sequential
-from keras.layers import Dense, Activation
+#import keras
+#from keras.models import Sequential
+#from keras.layers import Dense, Activation
 
-with open('JH_90_Neural.txt') as f:
-    data = [float(i) for i in f.read().split()]
+#inData = [ [[1,...,16],[1,...,16]] , [[1,...,16],[1,...,16]], [[1,...,16],[1,...,16]], ... ]
 
+basedir = 'C:/Jarvis/Hnd/Img'
+for typ in os.listdir(basedir):
+    for folder in os.listdir(basedir+"/"+typ):
+        i=0
+        for file in os.listdir(basedir+"/"+typ+"/"+folder):
+            #os.rename(basedir+"/"+typ+"/"+folder+"/"+file, basedir+"/"+typ+"/"+folder+"/"+str(i)+".png")
+            i+=1
+            img = cv2.imread(basedir+"/"+typ+"/"+folder+"/"+file)
+            print(basedir+"/"+typ+"/"+folder+"/"+file)
+            x0 = img.shape[1]
+            x1 = 0
+            y0 = img.shape[0]
+            y1 = 0
+            for y in range(img.shape[0]):
+                    for x in range(img.shape[1]):
+                        pixel = img[y,x]
+                        gray = .3*pixel[0] + .59*pixel[1] + .11*pixel[2]
+                        if(gray<150):
+                            img[y,x] = [0,0,0]
+                            if x<x0:
+                                x0=x
+                            if x>x1:
+                                x1=x
+                            if y<y0:
+                                y0=y
+                            if y>y1:
+                                y1=y
+                        else:
+                            img[y,x] = [255,255,255]
+            img = img[y0:y1,x0:x1]
+            img = cv2.resize(img,(16,16))
+            tempData = np.zeros(256)
+            i = 0
+            for y in range(img.shape[0]):
+                for x in range(img.shape[1]):
+                    if img[y,x][0] == 0:
+                        tempData[i] = 1
+                    i+=1
+            print(tempData)
+            #cv2.imshow('image', img)
+            #cv2.waitKey()
+
+exit(0)
 
 X=[]
 Y=[]
