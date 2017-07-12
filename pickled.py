@@ -9,8 +9,7 @@ from keras.layers import Dense, Activation
 
 inData = load(open('input.pkl' , 'rb' ))
 outData = load(open('output.pkl' , 'rb' ))
-print(inData)
-print(outData)
+print(str(type(inData)) + " "  + str(type(outData)))
 for a in range(10):
     i = 0
     for b in range(16):
@@ -29,7 +28,7 @@ model.add(Dense(100, activation='tanh'))
 model.add(Dense(1, activation='softmax'))
 
 model.compile(optimizer='adam',loss='mean_squared_error', metrics=['accuracy'])
-
+print(outData[1])
 model.fit(inData, outData, epochs=100, verbose=2)
 
 print(model.predict(inData[3]))

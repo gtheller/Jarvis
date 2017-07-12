@@ -8,9 +8,9 @@ from pickle import dump
 
 letter = "abcdefghijklmnopqrstuvwxyz"
 inData = np.zeros((1430,256))
-outData = np.chararray(1430)
+outData = np.zeros(1430)
 index=0
-basedir = 'C:/Jarvis/Hnd'
+basedir = os.getcwd() + "/Hnd"
 for typ in os.listdir(basedir):
     for folder in os.listdir(basedir+"/"+typ):
         i=0
@@ -41,6 +41,7 @@ for typ in os.listdir(basedir):
             img = cv2.resize(img,(16,16))
             #tempData = np.zeros(256)
             i = 0
+            print(file)
             for y in range(img.shape[0]):
                 for x in range(img.shape[1]):
                     if img[y,x][0] == 0:

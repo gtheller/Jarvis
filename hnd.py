@@ -14,7 +14,8 @@ from keras.layers import Dense, Activation
 inData = np.zeros((1430,256))
 outData = np.zeros((1430,1))
 index=0
-basedir = 'C:/Jarvis/Hnd'
+basedir = os.getcwd() + "/Hnd"
+print(basedir)
 for typ in os.listdir(basedir):
     for folder in os.listdir(basedir+"/"+typ):
         i=0
