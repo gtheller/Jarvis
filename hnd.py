@@ -4,6 +4,7 @@ import numpy as np
 import math
 import random
 import cv2
+from pickle import dump
 
 #import keras
 #from keras.models import Sequential
@@ -11,7 +12,10 @@ import cv2
 
 #inData = [ [[1,...,16],[1,...,16]] , [[1,...,16],[1,...,16]], [[1,...,16],[1,...,16]], ... ]
 
-basedir = 'C:/Jarvis/Hnd/Img'
+inData = np.zeros((1430,256))
+outData = np.zeros((1430,1))
+index=0
+basedir = 'C:/Jarvis/Hnd'
 for typ in os.listdir(basedir):
     for folder in os.listdir(basedir+"/"+typ):
         i=0
@@ -42,16 +46,33 @@ for typ in os.listdir(basedir):
                             img[y,x] = [255,255,255]
             img = img[y0:y1,x0:x1]
             img = cv2.resize(img,(16,16))
-            tempData = np.zeros(256)
+            #tempData = np.zeros(256)
             i = 0
             for y in range(img.shape[0]):
                 for x in range(img.shape[1]):
                     if img[y,x][0] == 0:
-                        tempData[i] = 1
+                        inData[index][i] = 1
+                        outData[index] = file
                     i+=1
-            print(tempData)
+            index+=1
+            print(inData)
+
+            iOut = open('input.pkl' , 'wb')
+            dump(inData,iOut,protocol=2)
+            iOut.close()
+
+            oOut = open('output.pkl' , 'wb')
+            dump(outData,oOut,protocol=2)
+            oOut.close()
+
+            cv2.imwrite("C:/Jarvis/Small/"+typ+"/"+folder+"/"+file, img)
             #cv2.imshow('image', img)
             #cv2.waitKey()
+print(inData)
+
+dOut = open('input.pkl' , 'wb')
+dump(inData,dOut,protocol=2)
+dOut.close()
 
 exit(0)
 
