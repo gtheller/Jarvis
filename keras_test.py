@@ -46,7 +46,7 @@ print(Y)
 #Y = np.array([[0],[1],[1],[0]])
 
 model = Sequential()
-model.add(Dense(16, input_dim=8, activation='tanh', use_bias=True))
+model.add(Dense(16, input_dim=8, activation='tanh', use_bias=True))     ##ignore this file, just some code from a previous project to refer to
 model.add(Dense(16, activation='tanh'))
 model.add(Dense(16, activation='tanh')) #elu worked pretty well
 model.add(Dense(5, activation='linear'))
