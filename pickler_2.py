@@ -1,16 +1,14 @@
-import sys
 import os
-import numpy as np
-import math
-import random
-import cv2
 from pickle import dump
+
+import cv2
+import numpy as np
 
 letter = "abcdefghijklmnopqrstuvwxyz"                           ########ignore for now, this is just pickler but uses the small images instead of creating them. I was impatient.
 inData = np.zeros((1430,256))
 outData = np.zeros((1430,1))
 index=0
-basedir = 'C:/Jarvis/Small'
+basedir = os.getcwd() #now works in any project folder
 for typ in os.listdir(basedir):
     for folder in os.listdir(basedir+"/"+typ):
         for file in os.listdir(basedir+"/"+typ+"/"+folder):

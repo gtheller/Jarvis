@@ -1,16 +1,14 @@
-import sys
 import os
-import numpy as np
-import math
-import random
-import cv2
 from pickle import dump
+
+import cv2
+import numpy as np
 
 letter = "abcdefghijklmnopqrstuvwxyz"
 inData = np.zeros((1430,256))   #input training data
 outData = np.zeros((1430,1))    #output training data
 index=0
-basedir = 'C:/Jarvis/Hnd'
+basedir = os.getcwd() #now works in any project folder
 for typ in os.listdir(basedir): #upper, lower, numbers
     for folder in os.listdir(basedir+"/"+typ):  #a,b,c,...
         i=0
